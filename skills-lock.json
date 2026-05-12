@@ -36,6 +36,12 @@
       "sourceType": "github",
       "skillPath": "plugins/javascript-typescript/skills/typescript-advanced-types/SKILL.md",
       "computedHash": "ee8377c523a911be41c31037b477805773ca5ab5ade181e44ca7dd3cd8df6692"
+    },
+    "videoagent-video-studio": {
+      "source": "pexoai/pexo-skills",
+      "sourceType": "github",
+      "skillPath": "skills/videoagent-video-studio/SKILL.md",
+      "computedHash": "754ebcf507ecd7c2ebfb8722fe21e2611bfd1d36c7a7fc73434d42c1246559c8"
     }
   }
 }
