@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Fiinor – Tableau de Bord</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon">F</div>
+    <span class="logo-text">Fiinor</span>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="#" class="nav-item active" id="nav-dashboard">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      <span>Tableau de Bord</span>
+    </a>
+    <a href="#" class="nav-item" id="nav-ecoles">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Établissements</span>
+      <span class="badge">12</span>
+    </a>
+    <a href="#" class="nav-item" id="nav-pedagogy">
+      <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+      <span>Pédagogie & Notes</span>
+    </a>
+    <a href="#" class="nav-item" id="nav-finance">
+      <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+      <span>Finances</span>
+    </a>
+    <a href="#" class="nav-item" id="nav-eleves">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+      <span>Élèves</span>
+    </a>
+    <a href="#" class="nav-item" id="nav-parents">
+      <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      <span>Parents & Comms</span>
+    </a>
+    <div class="nav-divider"></div>
+    <a href="#" class="nav-item oria" id="nav-oria">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      <span>ORIA – IA Tuteur</span>
+      <span class="badge new">IA</span>
+    </a>
+    <a href="#" class="nav-item" id="nav-rapports">
+      <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      <span>Rapports</span>
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="user-card">
+      <div class="user-avatar">D</div>
+      <div class="user-info">
+        <div class="user-name">M. Diallo</div>
+        <div class="user-role">Directeur Général</div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main-content" id="mainContent">
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="menu-btn" onclick="toggleSidebar()">
+        <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <h1 class="page-title">Tableau de Bord <span class="title-sub">— Vue Groupe</span></h1>
+    </div>
+    <div class="topbar-right">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" placeholder="Rechercher école, élève…"/>
+      </div>
+      <button class="icon-btn notif-btn" id="notifBtn">
+        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        <span class="notif-dot"></span>
+      </button>
+      <div class="sync-status">
+        <span class="sync-dot"></span>
+        <span>Synchronisé</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- KPI CARDS -->
+  <section class="kpi-grid">
+    <div class="kpi-card" style="--accent:var(--accent-emerald)">
+      <div class="kpi-icon" style="background:rgba(16,185,129,.1)">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+      </div>
+      <div class="kpi-body">
+        <p class="kpi-label">Total Élèves</p>
+        <p class="kpi-value" data-target="8420">0</p>
+        <p class="kpi-trend up"><span>↑</span> 12% cette année</p>
+      </div>
+    </div>
+    <div class="kpi-card" style="--accent:var(--accent-indigo)">
+      <div class="kpi-icon" style="background:rgba(99,102,241,.1)">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
+      <div class="kpi-body">
+        <p class="kpi-label">Établissements</p>
+        <p class="kpi-value" data-target="12">0</p>
+        <p class="kpi-trend up"><span>↑</span> 3 nouvelles</p>
+      </div>
+    </div>
+    <div class="kpi-card" style="--accent:var(--accent-cyan)">
+      <div class="kpi-icon" style="background:rgba(6,182,212,.1)">
+        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <div class="kpi-body">
+        <p class="kpi-label">Taux de Réussite</p>
+        <p class="kpi-value" data-target="81" data-suffix="%">0</p>
+        <p class="kpi-trend up"><span>↑</span> 5 pts vs 2024</p>
+      </div>
+    </div>
+    <div class="kpi-card" style="--accent:var(--accent-amber)">
+      <div class="kpi-icon" style="background:rgba(245,158,11,.1)">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+      </div>
+      <div class="kpi-body">
+        <p class="kpi-label">Recouvrement</p>
+        <p class="kpi-value" data-target="74" data-suffix="%">0</p>
+        <p class="kpi-trend down"><span>↓</span> 3% impayés</p>
+      </div>
+    </div>
+    <div class="kpi-card" style="--accent:var(--accent-indigo)">
+      <div class="kpi-icon" style="background:rgba(99,102,241,.1)">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </div>
+      <div class="kpi-body">
+        <p class="kpi-label">Élèves sur ORIA</p>
+        <p class="kpi-value" data-target="2340">0</p>
+        <p class="kpi-trend up"><span>↑</span> IA active</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN GRID -->
+  <div class="dashboard-grid">
+
+    <!-- MAP PANEL -->
+    <section class="card map-card">
+      <div class="card-header">
+        <h2>Carte des Établissements</h2>
+        <span class="card-badge">Guinée & Diaspora</span>
+      </div>
+      <div class="map-container" id="mapContainer">
+        <svg id="guineaMap" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid meet">
+          <!-- Guinea simplified outline -->
+          <defs>
+            <radialGradient id="mapGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#1e3a5f" stop-opacity="0.6"/>
+              <stop offset="100%" stop-color="#0f172a" stop-opacity="0"/>
+            </radialGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+              <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <rect width="600" height="400" fill="url(#mapGlow)" rx="12"/>
+          <!-- Guinea simplified polygon -->
+          <path d="M150,80 L200,60 L260,55 L310,70 L370,65 L420,90 L450,120 L440,160 L420,190 L400,220 L380,260 L350,290 L310,310 L280,330 L250,320 L220,300 L190,270 L160,240 L140,200 L120,160 L130,120 Z"
+                fill="#1e3a5f" stroke="#6ee7b7" stroke-width="1.5" stroke-opacity="0.6"/>
+          <!-- Region labels -->
+          <text x="280" y="150" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="Inter">Conakry</text>
+          <text x="350" y="130" fill="#94a3b8" font-size="9" text-anchor="middle" font-family="Inter">Labé</text>
+          <text x="380" y="200" fill="#94a3b8" font-size="9" text-anchor="middle" font-family="Inter">Kankan</text>
+          <text x="240" y="250" fill="#94a3b8" font-size="9" text-anchor="middle" font-family="Inter">Kindia</text>
+          <text x="310" y="270" fill="#94a3b8" font-size="9" text-anchor="middle" font-family="Inter">Faranah</text>
+          <!-- School dots -->
+          <g filter="url(#glow)">
+            <circle class="school-dot" cx="230" cy="175" r="8" fill="#6ee7b7" opacity="0.9"/>
+            <circle cx="230" cy="175" r="14" fill="#6ee7b7" opacity="0.2"/>
+            <circle class="school-dot" cx="345" cy="128" r="6" fill="#818cf8" opacity="0.9"/>
+            <circle cx="345" cy="128" r="11" fill="#818cf8" opacity="0.2"/>
+            <circle class="school-dot" cx="375" cy="198" r="5" fill="#fbbf24" opacity="0.9"/>
+            <circle cx="375" cy="198" r="9" fill="#fbbf24" opacity="0.2"/>
+            <circle class="school-dot" cx="245" cy="248" r="5" fill="#818cf8" opacity="0.9"/>
+            <circle cx="245" cy="248" r="9" fill="#818cf8" opacity="0.2"/>
+            <circle class="school-dot" cx="308" cy="268" r="4" fill="#f87171" opacity="0.9"/>
+            <circle cx="308" cy="268" r="8" fill="#f87171" opacity="0.2"/>
+          </g>
+          <!-- Legend -->
+          <g transform="translate(30,330)">
+            <circle cx="0" cy="0" r="5" fill="#6ee7b7"/>
+            <text x="10" y="4" fill="#94a3b8" font-size="9" font-family="Inter">Groupe A (4 écoles)</text>
+            <circle cx="0" cy="18" r="5" fill="#818cf8"/>
+            <text x="10" y="22" fill="#94a3b8" font-size="9" font-family="Inter">Groupe B (5 écoles)</text>
+            <circle cx="0" cy="36" r="5" fill="#fbbf24"/>
+            <text x="10" y="40" fill="#94a3b8" font-size="9" font-family="Inter">Indépendant (3 écoles)</text>
+          </g>
+        </svg>
+        <!-- Tooltips -->
+        <div class="map-tooltip" style="top:38%;left:36%" id="tt1">
+          <strong>Lycée Camara</strong><br/>Conakry · 980 élèves<br/><span class="green">Réussite: 88%</span>
+        </div>
+        <div class="map-tooltip" style="top:26%;left:56%" id="tt2">
+          <strong>Collège Labé</strong><br/>Labé · 540 élèves<br/><span class="green">Réussite: 79%</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PERFORMANCE TABLE -->
+    <section class="card perf-card">
+      <div class="card-header">
+        <h2>Performance des Établissements</h2>
+        <button class="btn-ghost">Analyse Détaillée →</button>
+      </div>
+      <div class="perf-table">
+        <div class="perf-head">
+          <span>Établissement</span><span>Inscrits</span><span>Taux de Réussite</span><span>Score Global</span>
+        </div>
+        <div class="perf-row" style="--c:var(--accent-emerald)">
+          <div class="perf-name"><div class="dot" style="background:var(--accent-emerald);color:var(--accent-emerald)"></div>Lycée Camara – Conakry</div>
+          <span>980</span>
+          <div class="bar-wrap">
+            <div class="bar-outer"><div class="bar" style="width:88%;background:var(--accent-emerald)"></div></div>
+            <span>88%</span>
+          </div>
+          <span class="score high">98.5</span>
+        </div>
+        <div class="perf-row" style="--c:var(--accent-indigo)">
+          <div class="perf-name"><div class="dot" style="background:var(--accent-indigo);color:var(--accent-indigo)"></div>Institut Supérieur – Labé</div>
+          <span>540</span>
+          <div class="bar-wrap">
+            <div class="bar-outer"><div class="bar" style="width:79%;background:var(--accent-indigo)"></div></div>
+            <span>79%</span>
+          </div>
+          <span class="score mid">83.9</span>
+        </div>
+        <div class="perf-row" style="--c:var(--accent-emerald)">
+          <div class="perf-name"><div class="dot" style="background:var(--accent-emerald);color:var(--accent-emerald)"></div>École Primaire – Kindia</div>
+          <span>720</span>
+          <div class="bar-wrap">
+            <div class="bar-outer"><div class="bar" style="width:86%;background:var(--accent-emerald)"></div></div>
+            <span>86%</span>
+          </div>
+          <span class="score high">86.5</span>
+        </div>
+        <div class="perf-row" style="--c:var(--accent-amber)">
+          <div class="perf-name"><div class="dot" style="background:var(--accent-amber);color:var(--accent-amber)"></div>Collège Kankan</div>
+          <span>430</span>
+          <div class="bar-wrap">
+            <div class="bar-outer"><div class="bar" style="width:64%;background:var(--accent-amber)"></div></div>
+            <span>64%</span>
+          </div>
+          <span class="score mid">64.5</span>
+        </div>
+        <div class="perf-row" style="--c:var(--accent-rose)">
+          <div class="perf-name"><div class="dot" style="background:var(--accent-rose);color:var(--accent-rose)"></div>Lycée Faranah</div>
+          <span>310</span>
+          <div class="bar-wrap">
+            <div class="bar-outer"><div class="bar" style="width:63%;background:var(--accent-rose)"></div></div>
+            <span>63%</span>
+          </div>
+          <span class="score low">63.5</span>
+        </div>
+        <div class="perf-row" style="--c:var(--accent-indigo)">
+          <div class="perf-name"><div class="dot" style="background:var(--accent-indigo);color:var(--accent-indigo)"></div>École N'Zérékoré</div>
+          <span>290</span>
+          <div class="bar-wrap">
+            <div class="bar-outer"><div class="bar" style="width:53%;background:var(--accent-indigo)"></div></div>
+            <span>53%</span>
+          </div>
+          <span class="score low">53.0</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHART: Inscriptions -->
+    <section class="card chart-card">
+      <div class="card-header">
+        <h2>Évolution Inscriptions</h2>
+        <div class="legend-pills">
+          <span class="pill" style="--c:var(--accent-emerald)">2020</span>
+          <span class="pill active" style="--c:var(--accent-indigo)">2025</span>
+        </div>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="inscriptionsChart"></canvas>
+      </div>
+    </section>
+
+    <!-- CHART: Budget -->
+    <section class="card chart-card">
+      <div class="card-header">
+        <h2>Budget par Secteur</h2>
+        <span class="card-badge">GNF</span>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="budgetChart"></canvas>
+      </div>
+    </section>
+
+    <!-- ORIA AI PANEL -->
+    <section class="card oria-card">
+      <div class="card-header">
+        <h2><span class="oria-badge">IA</span> ORIA – Activité Tuteur</h2>
+      </div>
+      <div class="oria-stats">
+        <div class="oria-stat">
+          <div class="oria-num">2,340</div>
+          <div class="oria-lbl">Élèves actifs</div>
+        </div>
+        <div class="oria-stat">
+          <div class="oria-num">14,820</div>
+          <div class="oria-lbl">Sessions</div>
+        </div>
+        <div class="oria-stat">
+          <div class="oria-num">+18%</div>
+          <div class="oria-lbl">Notes</div>
+        </div>
+      </div>
+      <div class="oria-subjects">
+        <div class="subject-bar">
+          <span>Mathématiques</span>
+          <div class="sbar-wrap"><div class="sbar" style="width:78%;background:linear-gradient(90deg,var(--accent-emerald),var(--accent-cyan))"></div></div>
+          <span>78%</span>
+        </div>
+        <div class="subject-bar">
+          <span>Français</span>
+          <div class="sbar-wrap"><div class="sbar" style="width:65%;background:linear-gradient(90deg,var(--accent-indigo),#4f46e5)"></div></div>
+          <span>65%</span>
+        </div>
+        <div class="subject-bar">
+          <span>Sciences</span>
+          <div class="sbar-wrap"><div class="sbar" style="width:54%;background:linear-gradient(90deg,var(--accent-amber),#d97706)"></div></div>
+          <span>54%</span>
+        </div>
+        <div class="subject-bar">
+          <span>Histoire-Géo</span>
+          <div class="sbar-wrap"><div class="sbar" style="width:42%;background:linear-gradient(90deg,var(--accent-rose),#e11d48)"></div></div>
+          <span>42%</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- NOTIFICATIONS -->
+    <section class="card notif-card">
+      <div class="card-header">
+        <h2>Notifications</h2>
+        <button class="btn-ghost">Tout voir</button>
+      </div>
+      <div class="notif-list">
+        <div class="notif-item success">
+          <div class="notif-icon">✓</div>
+          <div class="notif-body">
+            <strong>Bulletins générés</strong>
+            <p>Lycée Camara – 980 bulletins prêts</p>
+            <span class="notif-time">Il y a 12 min</span>
+          </div>
+        </div>
+        <div class="notif-item warning">
+          <div class="notif-icon">!</div>
+          <div class="notif-body">
+            <strong>Paiements en retard</strong>
+            <p>47 élèves – Collège Kankan</p>
+            <span class="notif-time">Il y a 1h</span>
+          </div>
+        </div>
+        <div class="notif-item info">
+          <div class="notif-icon">i</div>
+          <div class="notif-body">
+            <strong>Nouveau partenariat</strong>
+            <p>Convention signée – Université Conakry</p>
+            <span class="notif-time">Il y a 3h</span>
+          </div>
+        </div>
+        <div class="notif-item success">
+          <div class="notif-icon">★</div>
+          <div class="notif-body">
+            <strong>ORIA – Résultat BAC</strong>
+            <p>+23% réussite groupe prépa 2025</p>
+            <span class="notif-time">Il y a 5h</span>
+          </div>
+        </div>
+        <div class="notif-item warning">
+          <div class="notif-icon">!</div>
+          <div class="notif-body">
+            <strong>Synchronisation hors-ligne</strong>
+            <p>École Faranah – 3h de données en attente</p>
+            <span class="notif-time">Il y a 6h</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINANCE RING -->
+    <section class="card finance-card">
+      <div class="card-header">
+        <h2>Répartition Éducative</h2>
+      </div>
+      <div class="finance-body">
+        <div class="donut-wrap">
+          <canvas id="donutChart"></canvas>
+          <div class="donut-center">
+            <span class="donut-val">12</span>
+            <span class="donut-lbl">écoles</span>
+          </div>
+        </div>
+        <div class="finance-legend">
+          <div class="leg-item"><span class="leg-dot" style="background:var(--accent-emerald)"></span>Supérieur <strong>33%</strong></div>
+          <div class="leg-item"><span class="leg-dot" style="background:var(--accent-indigo)"></span>Secondaire <strong>42%</strong></div>
+          <div class="leg-item"><span class="leg-dot" style="background:var(--accent-amber)"></span>Primaire <strong>25%</strong></div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
